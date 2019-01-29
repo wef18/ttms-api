@@ -13,8 +13,8 @@ const cors = require('cors');
 const adminRouter = require('./routers/admin/admin');
 const categoryRouter = require('./routers/admin/category');
 const dishRouter = require('./routers/admin/dish');
-// const settings = require('./routers/admin/settings');
-// const table = require('./routers/admin/table');
+const settingsRouter = require('./routers/admin/settings');
+const tableRouter = require('./routers/admin/table');
 
 //启动主服务器
 var app = express();
@@ -26,9 +26,7 @@ app.listen(PORT,()=>{
 //   extended: false
 // }));
 app.use(bodyParser.json());//把JSON格式的请求主体数据解析出来放到req.body中
-app.use(cors({
-  origin:"http://127.0.0.1:5500"
-}))
+app.use(cors())
 
 
 
@@ -36,5 +34,5 @@ app.use(cors({
 app.use('/admin',adminRouter);
 app.use('/admin/category',categoryRouter);
 app.use('/admin/dish',dishRouter);
-// app.use(settings);
-// app.use(table);
+app.use('/admin/settings',settingsRouter);
+app.use('/admin/table',tableRouter);

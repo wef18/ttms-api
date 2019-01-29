@@ -7,7 +7,16 @@
   <title>Document</title>
 </head>
 <body>
-  <button id='btn1'>点击获取</button>
+  <button id='btn1'>点击获取所有菜品</button>
+  <button id='btn2'>获取某一道菜</button>
+  <hr>
+  <input type="text" id='inputDesc'>
+  <input type="file" id='inputFile'>
+  <button id='btn3' type="button">上传菜品图片</button>
+  <hr>
+  <button id='btn4'>添加菜品</button>
+  <button id='btn5'>删除菜品</button>
+  <button id='btn6'>修改菜品</button>
   <script src="./axios.min.js"></script>
   <script>
     btn1.onclick = function(){
@@ -17,6 +26,60 @@
         console.log(err)
       })
     }
+    btn3.onclick = function(){
+      //异步文件上传
+      //手工创建一个multipart/form-data形式的请求主体
+      var data = new FormData();
+      //向请求主体中追加要提交的数据
+      data.append('description',inputDesc.value);
+      //向请求主体中逐渐用户选中的文件
+      // console.dir(inputFile)
+      data.append('dishImg', inputFile.files[0]);
+      //使用axios将请求主体异步提交给服务器
+      axios.post('http://127.0.0.1:8080/admin/dish/image',data).then((result)=>{
+        alert( JSON.stringify(result.data) );
+      }).catch((err)=>{
+        alert(err)
+      })
+    }
+    btn4.onclick = function(){
+      var data = {
+        title: '大火烧',
+        imgUrl: '7653.jpg',
+        price: 36,
+        detail: '驴肉火烧的详情',
+        categoryId: 5
+      }
+      axios.post('http://127.0.0.1:8080/admin/dish',data).then((result)=>{
+        console.log(result.data)
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
+    btn5.onclick = function(){
+      axios.delete('http://127.0.0.1:8080/admin/dish/68').then((result)=>{
+        console.log(result.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+    btn6.onclick = function(){
+      var data = {did: 66, title: '驴肉火烧', imgUrl: '888.jpg', price: 16, detail: '驴肉火烧的详情介绍', categoryId: 1}
+      axios.put('http://127.0.0.1:8080/admin/dish',data).then((result)=>{
+        console.log(result.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
   </script>
+
+
+
+<hr>
+<form action="http://127.0.0.1:8080/admin/dish/image" method="POST" enctype="multipart/form-data">
+  <input type="file" name="dishImg" />
+  <br>
+  <input type="submit" value="上传" />
+</form>
 </body>
 </html>
