@@ -2,9 +2,8 @@
  * 天天美食扫码点餐项目API子系统
  */
 /** 端口号 **/
-console.log('准备启动API服务器')
-console.log(new Date().toLocaleString())
-const PORT = 8080;
+// const PORT = 8080;
+const PORT = 5050;
 /** 引入第三方模块 **/
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -20,7 +19,6 @@ const tableRouter = require('./routers/admin/table');
 var app = express();
 app.listen(PORT,()=>{
   console.log(' Server Listening ' + PORT + ' ... ');
-  console.log(new Date().toLocaleString())
 });
 // app.use(bodyParser.urlencoded({
 //   extended: false

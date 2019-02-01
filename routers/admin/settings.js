@@ -9,10 +9,10 @@ const router = express.Router();
  * GET admin/settings
  */
 router.get('/',(req,res)=>{
-  sql = 'SELECT * FROM ttms_settings';
+  sql = 'SELECT * FROM ttms_settings LIMIT 1';
   pool.query(sql,(err,result)=>{
     if(err) throw err;
-    res.send(result)
+    res.send(result[0])
   })
 })
 
@@ -23,18 +23,10 @@ router.get('/',(req,res)=>{
  */
 router.put('/',(req,res)=>{
   var data = req.body;
-  var sql = 'UPDATE ttms_settings SET ? WHERE sid=?';
-  pool.query(sql,[data,data.sid],(err,result)=>{
+  var sql = 'UPDATE ttms_settings SET ?';
+  pool.query(sql,data,(err,result)=>{
     if(err) throw err;
-    if(result.changedRows > 0){
-      //实际更新了一行
-      res.send({code: 200,msg: 'settings updated succ'})
-    }else if(result.affectedRows == 0){
-      res.send({code: 400,msg: 'settings not exists'})
-    }else if(result.affectedRows ==1 && result.changedRows == 0){
-      //影响到1行，但修改了0行--新值与旧值完全一样
-      res.send({code: 401,msg: '0 settings modified,no modification'})
-    }
+    res.send({code: 200,msg: 'settings updated succ'})
   })
 })
 

@@ -19,7 +19,7 @@
       })
     }
     btn2.onclick = function(){
-      var data = { sid: 1, appName: '天天美食点餐', apiUrl: 'http://127.0.0.1:8060', adminUrl: 'http://127.0.0.1:8061', appUrl: 'http://127.0.0.1:8062', icp: '京ICP备12003709号-3', copyright: 'Copyright © 河南省郑州市天天美食有限公司版权所有' }
+      var data = { sid: 1, appName: '天天美食', apiUrl: 'http://127.0.0.1:8080', adminUrl: 'http://127.0.0.1:8081', appUrl: 'http://127.0.0.1:8082', icp: '京ICP备12003709号-3', copyright: 'Copyright © 河南省郑州市天天美食有限公司版权所有' }
       axios.put('http://127.0.0.1:8080/admin/settings',data).then((res)=>{
         console.log(res.data)
       }).catch((err)=>{

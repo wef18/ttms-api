@@ -54,7 +54,7 @@ router.post('/',(req,res)=>{
   var sql = 'INSERT INTO ttms_category SET ?';
   pool.query(sql,data,(err,result)=>{
     if(err) throw err;
-    res.send({code: 200,msg: '1 category added'});
+    res.send({code: 200,msg: '1 category added', cid: result.insertId});
   })
 })
 

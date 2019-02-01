@@ -9,7 +9,7 @@ const router = express.Router();
  * GET /admin/table
  */
 router.get('/',(req,res)=>{
-  var sql = 'SELECT * FROM ttms_table';
+  var sql = 'SELECT * FROM ttms_table ORDER BY tid';
   pool.query(sql,(err,result)=>{
     if(err) throw err;
     res.send(result);
